@@ -1,29 +1,15 @@
-import { useEffect, useState } from "react";
-
-function Clock() {
-  const [date, setDate] = useState(new Date());
-  useEffect(() => {
-    const timer = setInterval(() => {
-      console.log(date);
-      setDate(new Date());
-    }, 1000);
-
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  return <div>{date.toTimeString()}</div>;
-}
+import Carousel from "./Carousel";
 
 function App() {
-  const [show, setShow] = useState(false);
+  const images = [
+    "https://picsum.photos/200/300?random=1",
+    "https://picsum.photos/200/300?random=2",
+    "https://picsum.photos/200/300?random=3",
+  ];
 
   return (
     <div>
-      <button onClick={() => setShow(true)}>보이기</button>
-      <button onClick={() => setShow(false)}>숨기기</button>
-      {show && <Clock />}
+      <Carousel images={images} />
     </div>
   );
 }
