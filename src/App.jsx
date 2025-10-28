@@ -1,67 +1,32 @@
-import { useContext, useState } from "react";
-import MyContext from "./MyContext";
-
-function E() {
-  const value = useContext(MyContext);
-
-  return (
-    <div>
-      <p>컴포넌트 E</p>
-      <p>E에서 value: {value}</p>
-    </div>
-  );
-}
-
-function D() {
-  return (
-    <div>
-      <p>컴포넌트 D</p>
-      <E />
-    </div>
-  );
-}
-
-function C() {
-  const value = useContext(MyContext);
-
-  return (
-    <div>
-      <p>컴포넌트 C</p>
-      <p>C에서 value: {value}</p>
-      <D />
-    </div>
-  );
-}
-
-function B() {
-  return (
-    <div>
-      <p>컴포넌트 B</p>
-      <C />
-    </div>
-  );
-}
-
-function A() {
-  return (
-    <div>
-      <p>컴포넌트 A</p>
-      <B />
-    </div>
-  );
-}
+import { useCallback, useEffect, useState } from "react";
 
 function App() {
-  const [value, setValue] = useState(0);
+  const [count, setCount] = useState(0);
+  const [num, setNum] = useState(0);
+
+  const addCount = useCallback(() => {
+    setCount((c) => c + 1);
+    console.log(`num: ${num}`);
+  }, [num]);
+
+  const addNum = () => setNum((n) => n + 1);
+
+  useEffect(() => {
+    console.log("timer start");
+    const timerId = setInterval(() => {
+      addCount();
+    }, 1000);
+
+    return () => {
+      clearInterval(timerId);
+      console.log("timer end");
+    };
+  }, [addCount]);
 
   return (
     <div>
-      <MyContext.Provider value={value}>
-        <p>App 컴포넌트</p>
-        <p>App의 value: {value}</p>
-        <A />
-        <button onClick={() => setValue(value + 1)}>value 증가</button>
-      </MyContext.Provider>
+      <button onClick={addCount}>count: {count}</button>
+      <button onClick={addNum}>num: {num}</button>
     </div>
   );
 }
