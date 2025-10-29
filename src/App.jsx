@@ -1,29 +1,23 @@
 import styled from "styled-components";
-import Button from "./Button";
+import Input from "./Input";
 
 const Container = styled.div`
-  ${Button} {
-    margin: 10px;
+  ${Input} {
+    margin: 8px;
   }
 `;
 
 function App() {
   return (
     <Container>
-      <h1>기본 버튼</h1>
-      <Button size="small">small</Button>
-      <Button size="medium">medium</Button>
-      <Button size="large">large</Button>
-      <h1>둥근 버튼</h1>
-      <Button size="small" round>
-        round small
-      </Button>
-      <Button size="medium" round>
-        round medium
-      </Button>
-      <Button size="large" round>
-        round large
-      </Button>
+      <h2>Size</h2>
+      <Input size="small" />
+      <Input size="medium" />
+      <Input size="large" />
+      <h2>Round</h2>
+      <Input round />
+      <h2>Error</h2>
+      <Input error />
     </Container>
   );
 }
