@@ -1,33 +1,39 @@
-import { useEffect, useState } from "react";
+import styled from "styled-components";
+import Button from "./Button";
+import Input from "./Input";
+
+const Container = styled.div`
+  margin: 0 auto;
+  width: 400px;
+
+  ${Input} {
+    box-sizing: border-box;
+    display: block;
+    margin: 8px 0 16px;
+    width: 100%;
+  }
+`;
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [num, setNum] = useState(0);
-
-  const addCount = (log) => {
-    setCount((c) => c + 1);
-    console.log(log);
-  };
-
-  const addNum = () => setNum((n) => n + 1);
-
-  useEffect(() => {
-    console.log("timer start");
-    const timerId = setInterval(() => {
-      addCount(`num: ${num}`);
-    }, 1000);
-
-    return () => {
-      clearInterval(timerId);
-      console.log("timer end");
-    };
-  }, [num]);
-
   return (
-    <div>
-      <button onClick={addCount}>count: {count}</button>
-      <button onClick={addNum}>num: {num}</button>
-    </div>
+    <Container>
+      <h1>로그인</h1>
+      <label for="email">이메일</label>
+      <Input
+        type="email"
+        id="email"
+        class="input"
+        placeholder="styled@codeit.kr"
+      />
+      <label for="password">비밀번호</label>
+      <Input
+        type="password"
+        id="password"
+        class="input"
+        placeholder="비밀번호"
+      />
+      <Button>Hello Styled!</Button>
+    </Container>
   );
 }
 
