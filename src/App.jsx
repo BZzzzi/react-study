@@ -1,56 +1,128 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import logoImg from "./assets/codeit.png";
+import kakaoIcon from "./assets/kakao.svg";
 
-const SIZES = {
-  large: 24,
-  medium: 20,
-  small: 16,
-};
-
-const boxShadow = css`
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+const Contains = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 40px auto;
 `;
 
-const borderRadius = css`
-  ${({ round }) => (round ? `9999px` : `3px`)};
+const TitleContains = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const fontSize = css`
-  ${({ size }) => SIZES[size] ?? SIZES["medium"]}px;
+const Img = styled.img`
+  width: 200px;
 `;
 
-const StyledButton = styled.button`
-  background-color: #6750a4;
-  border: none;
-  color: #ffffff;
-  padding: 16px;
-  ${borderRadius}
-  ${fontSize}
-  ${boxShadow}
-
-  &:hover,
-  &:active {
-    background-color: #463770;
+const SignUpNotice = styled.h3`
+  color: #848187;
+  & a {
+    color: #6500c3;
+    font-weight: bold;
   }
 `;
 
 const Input = styled.input`
-  border: 2px solid ${({ error }) => (error ? `#f44336` : `#eeeeee`)};
+  width: 400px;
+  border: none;
+  display: block;
   outline: none;
-  padding: 16px;
-  ${borderRadius}
-  ${fontSize}
-  ${boxShadow}
+  padding: 8px 0;
+  border-bottom: 2px solid ${({ error }) => (error ? `#f44336` : `#eeeeee`)};
+  margin-bottom: 16px;
 
   &:focus {
-    border-color: ${({ error }) => (error ? `#f44336` : `#7760b4`)};
+    border-bottom: 2px solid ${({ error }) => (error ? `#f44336` : `#7760b4`)};
+  }
+
+  &::placeholder {
+    color: #c4c5cd;
+  }
+`;
+
+const Label = styled.label`
+  color: #e1c6f7;
+`;
+
+const ButtonContains = styled.div`
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+`;
+
+const borderRadius = css`
+  border-radius: ${({ round }) => (round ? `9999px` : `8px`)};
+`;
+
+const LoginButton = styled.button`
+  width: 100%;
+  background-color: #6500c3;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 16px;
+
+  ${borderRadius}
+
+  &:hover,
+  &:active {
+    background-color: #7760b4;
+  }
+`;
+
+const Icon = styled.img`
+  height: 24px;
+  width: 24px;
+`;
+
+const KakaoButton = styled(LoginButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fee500;
+  color: rgba(0, 0, 0, 0.8);
+
+  ${Icon} {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: #fee500;
+  }
 `;
 
 function App() {
   return (
-    <div>
-      <StyledButton>계속하기</StyledButton>
-      <Input />
-    </div>
+    <Contains>
+      <TitleContains>
+        <Img src={logoImg} alt="로고" />
+        <SignUpNotice>
+          회원이 아니신가요? <a href="/">회원가입 하기</a>
+        </SignUpNotice>
+      </TitleContains>
+      <Label htmlFor="email">이메일</Label>
+      <Input id="email" type="email" placeholder="styled@codeit.kr" error />
+      <Label htmlFor="password">비밀번호</Label>
+      <Input id="password" type="password" placeholder="비밀번호" />
+      <ButtonContains>
+        <LoginButton>로그인 하기</LoginButton>
+        <KakaoButton>
+          <Icon src={kakaoIcon} alt="카카로 로그인 아이콘" />
+          카카오 로그인
+        </KakaoButton>
+      </ButtonContains>
+    </Contains>
   );
 }
 
