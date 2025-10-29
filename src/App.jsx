@@ -1,19 +1,43 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-const GlobalStyled = createGlobalStyle`
-  body {
-  background-color: #111111;
-    color: #ffffff;
-  font-family: sans-serif;
-}
+const placeholderGlow = keyframes`
+  50% {
+    opacity: 0.2;
+  }
+`;
 
+export const PlaceholderItem = styled.div`
+  background-color: #888888;
+  height: 20px;
+  margin: 8px 0;
+`;
+
+const Placeholder = styled.div`
+  animation: ${placeholderGlow} 2s ease-in-out infinite;
+`;
+
+const A = styled(PlaceholderItem)`
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+`;
+
+const B = styled(PlaceholderItem)`
+  width: 400px;
+`;
+
+const C = styled(PlaceholderItem)`
+  width: 200px;
 `;
 
 function App() {
   return (
     <div>
-      <GlobalStyled />
-      <h1>글로벌 스타일</h1>
+      <Placeholder>
+        <A />
+        <B />
+        <C />
+      </Placeholder>
     </div>
   );
 }
