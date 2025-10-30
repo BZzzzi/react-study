@@ -1,33 +1,41 @@
-import React, { useContext } from "react";
-import { ThemeProvider, ThemeContext } from "styled-components";
+import { useState } from "react";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import Input from "./Input";
 
-const theme = {
-  primaryColor: "#1da1f2",
-  secondaryColor: "#f5070f",
+const THEMES = {
+  light: {
+    backgroundColor: "#ffffff",
+    color: "#000000",
+  },
+  dark: {
+    backgroundColor: "#121212",
+    color: "#ffffff",
+  },
 };
 
-function ThemeSettings() {
-  const theme = useContext(ThemeContext);
-  return (
-    <div>
-      <h2>현재 테마 미리보기</h2>
-      <div
-        style={{
-          width: "80px",
-          height: "80px",
-          backgroundColor: theme.primaryColor,
-          borderRadius: "8px",
-        }}
-      />
-      <p>Primary Color: {theme.primaryColor}</p>
-    </div>
-  );
-}
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${({ theme }) => theme.backgroundColor};
+    color: ${({ theme }) => theme.color};
+  }
+`;
 
 function App() {
+  const [theme, setTheme] = useState(THEMES["light"]);
+
+  const handleSelectChange = (e) => {
+    const nextThemeName = e.target.value;
+    setTheme(THEMES[nextThemeName]);
+  };
+
   return (
     <ThemeProvider theme={theme}>
-      <ThemeSettings />
+      <select onChange={handleSelectChange}>
+        <option value="light">라이트 모드</option>
+        <option value="dark">다크 모드</option>
+      </select>
+      <GlobalStyle />
+      <Input />
     </ThemeProvider>
   );
 }
